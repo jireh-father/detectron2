@@ -34,7 +34,7 @@ def main(args):
     # cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url(
     #     "COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
     cfg.SOLVER.IMS_PER_BATCH = args.img_per_batch
-    # cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
+    cfg.SOLVER.BASE_LR = args.base_lr#0.00025  # pick a good LR
     # cfg.SOLVER.MAX_ITER = 300  # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
     # cfg.SOLVER.STEPS = []  # do not decay learning rate
     cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = args.batch_size_per_image  # faster, and good enough for this toy dataset (default: 512)
@@ -62,6 +62,8 @@ if __name__ == '__main__':
     parser.add_argument('--num_workers', default=2, type=int)
     parser.add_argument('--resume_train', default=False, action='store_true')
     parser.add_argument('--img_per_batch', default=2, type=int)
+    parser.add_argument('--max_iter', default=90000, type=int)
+    parser.add_argument('--base_lr', default=0.02, type=float)
     parser.add_argument('--batch_size_per_image', default=512, type=int)
 
     main(parser.parse_args())
